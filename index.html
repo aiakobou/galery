@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galery</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    
+    <script>
+        // with npm use: const fs = require('fs');
+        var pictA = new Image();
+        var SlideShowActive = false;
+        var imageDir = './static/img/';
+        var time = 2000;
+        var countingNumber = 1;
+        var activeSlideShow;
+        const dir = 'static/img';
+        const numberOfImages = 3; //const numberOfImages = fs.readdirSync('./static/img').length;
+        var image = new Array(numberOfImages);
+        
+        window.onload = function() { 
+
+            for (var i = 1; i <= numberOfImages; i++) {
+                image[i] = imageDir + 'image' + i + '.jpeg'; 
+            }
+            pictA.src = image[1]; 
+            document.pic1.src = pictA.src; 
+            window.scrollTo(0,0);
+        }
+
+        function GotoNext() {
+            countingNumber = countingNumber + 1;
+            if (countingNumber > numberOfImages) { 
+                countingNumber = 1; 
+            }
+            pictA.src = image[countingNumber];
+            document.pic1.src = pictA.src;
+        }
+    
+        function StartStop() {
+            SlideShowActive = !SlideShowActive;
+            if (SlideShowActive) {
+                StartShow();
+            }
+            else {
+               StopShow()
+            }   
+        }    
+        
+        function StartShow() {
+            activeSlideShow = setInterval(GotoNext, time);
+        }
+        
+        function StopShow() {
+            clearInterval(activeSlideShow);
+        }
+        
+    </script>
+    
+    <form name="formu">
+        <input type = "button" class = "btn" name = "btn4" value = " Play/Pause " onclick = "StartStop()">
+        <img src="" id="pic1" name="pic1" style="height:480px; border:2px solid silver; border-radius:10px;">
+    </form>
+
+</body>
+</html>
